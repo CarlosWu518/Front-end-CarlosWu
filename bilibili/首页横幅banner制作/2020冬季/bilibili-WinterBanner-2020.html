@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哔哩哔哩冬季横幅</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        header {
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+            --percentage: 0.5;
+        }
+        
+        header .view,
+        header .tree {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        header img,
+        header video {
+            position: absolute;
+            display: block;
+            width: 120%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        header .morning {
+            z-index: 20;
+            opacity: calc(1 - (var(--percentage) - 0.25) / 0.25);
+        }
+        
+        header .afternoon {
+            z-index: 10;
+            opacity: calc(1 - (var(--percentage) - 0.5) / 0.5);
+        }
+        
+        header .view {
+            transform: translateX(calc(var(--percentage) * 100px));
+        }
+        
+        header .tree {
+            transform: translateX(calc(var(--percentage) * 50px));
+            filter: blur(3px);
+        }
+        
+        header .view,
+        header .tree,
+        header .morning,
+        header .afternoon {
+            transition: .2s all ease-in;
+        }
+        
+        header.moving .view,
+        header.moving .tree,
+        header.moving .morning,
+        header.moving .afternoon {
+            transition: none;
+        }
+        
+        header .windowCover {
+            opacity: calc((var(--percentage) - 0.9) / 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="view">
+            <img src="./image/上午.jpg" class="morning">
+            <img src="./image/下午.jpg" class="afternoon">
+            <video src="./image/晚上.webm" class="evening" autoplay='autoplay' muted='muted' loop='loop'></video>
+            <img src="./image/雪球.png" class="snowball">
+            <img src="./image/晚晚上窗花.png" class="windowCover">
+        </div>
+        <div class="trees">
+            <img src="./image/早上树.png" class="morning">
+            <img src="./image/下午树.png" class="afternoon">
+            <img src="./image/晚上树.png" class="evening">
+        </div>
+    </header>
+    <script>
+        let startingPoint
+        const header = document.querySelector('header')
+
+        header.addEventListener('mouseenter', (e) => {
+            startingPoint = e.clientX
+            header.classList.add('moving')
+        })
+
+        header.addEventListener('mouseout', (e) => {
+            header.classList.remove('moving')
+            header.style.setProperty('--percentage', 0.5)
+        })
+
+        header.addEventListener('mousemove', (e) => {
+            let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5
+
+            header.style.setProperty('--percentage', percentage)
+        })
+    </script>
+</body>
+
+</html>
