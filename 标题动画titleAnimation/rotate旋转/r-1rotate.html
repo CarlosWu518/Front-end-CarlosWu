@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: Helvetica;
+        }
+        
+        span {
+            display: inline-block;
+            animation: jump .5s ease-in-out;
+            animation-delay: var(--delay)
+        }
+        
+        h1 {
+            font-size: 66px;
+            cursor: pointer;
+        }
+        
+        h1:hover span {
+            animation: jump 1s ease-in-out infinite;
+            animation-delay: var(--delay)
+        }
+        
+        @keyframes jump {
+            0%,
+            100% {
+                transform: rotateY(0deg)
+            }
+            50% {
+                transform: rotateY(180deg)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>HelloWordJump</h1>
+</body>
+<script>
+    const h1 = document.querySelector('h1');
+    h1.innerHTML = h1.textContent.replace(/\S/g, "<span>$&</span>")
+    const span = document.querySelectorAll('span')
+    span.forEach((span, index) => {
+        span.style.setProperty('--delay', `${index*0.1}s`)
+    })
+</script>
+
+</html>
